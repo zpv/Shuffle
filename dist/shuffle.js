@@ -710,6 +710,10 @@ function getItemPosition(_ref) {
     positions[shortColumnIndex + i] = setHeight;
   }
 
+  window.sauronColumns = positions.filter((x) => {
+    return !(x == 0);
+  }).length;
+
   return point;
 }
 
@@ -805,7 +809,7 @@ var Shuffle = function () {
       // styles to be applied without transitions.
       this.element.offsetWidth; // eslint-disable-line no-unused-expressions
       this._setTransitions();
-      this.element.style.transition = 'height ' + this.options.speed + 'ms ' + this.options.easing;
+      this.element.style.transition = 'all ' + this.options.speed + 'ms ' + this.options.easing;
     }
 
     /**
@@ -1187,6 +1191,8 @@ var Shuffle = function () {
       this.cols = Math.max(Math.floor(calculatedColumns), 1);
       this.containerWidth = containerWidth;
       this.colWidth = columnWidth;
+
+      window.sauronElementWidth = columnWidth;      
     }
 
     /**
