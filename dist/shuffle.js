@@ -710,9 +710,15 @@ function getItemPosition(_ref) {
     positions[shortColumnIndex + i] = setHeight;
   }
 
-  window.sauronColumns = positions.filter((x) => {
+  var columns = positions.filter((x) => {
     return !(x == 0);
   }).length;
+
+  window.dispatchEvent(new CustomEvent("shuffle-layout-change", {detail: {
+    "eleWidth": _ref.itemSize.width,
+    "eleColumns": columns,
+  }
+  }));    
 
   return point;
 }
@@ -1190,9 +1196,7 @@ var Shuffle = function () {
 
       this.cols = Math.max(Math.floor(calculatedColumns), 1);
       this.containerWidth = containerWidth;
-      this.colWidth = columnWidth;
-
-      window.sauronElementWidth = columnWidth;      
+      this.colWidth = columnWidth;  
     }
 
     /**
@@ -1401,7 +1405,7 @@ var Shuffle = function () {
       if (containerWidth === this.containerWidth) {
         return;
       }
-
+      
       this.update();
     }
 
